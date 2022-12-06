@@ -356,17 +356,17 @@ const app = {
         }
     },
     start: function() {
-        // Định nghĩa các thuộc tính
-        this.defineProperties()
-        
         // Gán cấu hình từ config vào ứng dụng
         this.loadConfig()
-
+        
         // Hiển thị trạng thái lần truy cập cuối
         this.renderConfig()
-
+        
         // Tải mảng chứa index các bài hát phục vụ việc random song
         this.loadSongIndexArray()
+        
+        // Định nghĩa các thuộc tính
+        this.defineProperties()
         
         // Render playlist
         this.render()
