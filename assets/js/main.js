@@ -356,6 +356,9 @@ const app = {
         }
     },
     start: function() {
+        // Định nghĩa các thuộc tính
+        this.defineProperties()
+        
         // Gán cấu hình từ config vào ứng dụng
         this.loadConfig()
 
@@ -364,9 +367,6 @@ const app = {
 
         // Tải mảng chứa index các bài hát phục vụ việc random song
         this.loadSongIndexArray()
-        
-        // Định nghĩa các thuộc tính
-        this.defineProperties()
         
         // Render playlist
         this.render()
