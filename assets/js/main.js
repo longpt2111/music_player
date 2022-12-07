@@ -35,7 +35,7 @@ const app = {
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
-    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || [],
     songs: [
         {
             name: 'Mười Năm',
