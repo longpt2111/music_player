@@ -117,6 +117,11 @@ header h2 {
     -webkit-tap-highlight-color: transparent;
 }
 
+.control .btn-prev:active,
+.control .btn-next:active {
+    opacity: 0.8;
+}
+
 .progress {
     width: 100%;
     -webkit-appearance: none;
