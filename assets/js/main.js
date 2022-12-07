@@ -264,9 +264,20 @@ const app = {
         })
     },
     loadConfig: function() {
+        if (localStorage.length === 0) {
+            const initialConfig = {
+                isRandom: this.isRandom,
+                isRepeat: this.isRepeat,
+                currentIndex: this.currentIndex
+            }
+            localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(initialConfig))
+            this.isRandom = this.config.isRandom
+            this.isRepeat = this.config.isRepeat
+            this.currentIndex = this.config.currentIndex
+        }
+
         this.isRandom = this.config.isRandom
         this.isRepeat = this.config.isRepeat
-
         this.currentIndex = this.config.currentIndex
     },
     renderConfig: function() {
@@ -356,6 +367,12 @@ const app = {
         }
     },
     start: function() {
+        // Gán cấu hình từ config vào ứng dụng
+        this.loadConfig()
+        
+        // Hiển thị trạng thái lần truy cập cuối
+        this.renderConfig()
+        
         // Tải mảng chứa index các bài hát phục vụ việc random song
         this.loadSongIndexArray()
         
@@ -370,12 +387,6 @@ const app = {
         
         // Lắng nghe và xử lý các sự kiện (DOM events)
         this.handleEvents()
-
-        // Gán cấu hình từ config vào ứng dụng
-        this.loadConfig()
-        
-        // Hiển thị trạng thái lần truy cập cuối
-        this.renderConfig()
     }
 }
 
