@@ -35,7 +35,7 @@ const app = {
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
-    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || [],
+    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
     songs: [
         {
             name: 'Mười Năm',
@@ -356,12 +356,6 @@ const app = {
         }
     },
     start: function() {
-        // Gán cấu hình từ config vào ứng dụng
-        this.loadConfig()
-        
-        // Hiển thị trạng thái lần truy cập cuối
-        this.renderConfig()
-        
         // Tải mảng chứa index các bài hát phục vụ việc random song
         this.loadSongIndexArray()
         
@@ -370,12 +364,18 @@ const app = {
         
         // Render playlist
         this.render()
-
+        
         // Tải thông tin bài hát đầu tiên vào UI khi chạy ứng dụng
         this.loadCurrentSong()
-
+        
         // Lắng nghe và xử lý các sự kiện (DOM events)
         this.handleEvents()
+
+        // Gán cấu hình từ config vào ứng dụng
+        this.loadConfig()
+        
+        // Hiển thị trạng thái lần truy cập cuối
+        this.renderConfig()
     }
 }
 
