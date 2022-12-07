@@ -265,20 +265,17 @@ const app = {
     },
     loadConfig: function() {
         if (localStorage.length === 0) {
-            const initialConfig = {
-                isRandom: this.isRandom,
-                isRepeat: this.isRepeat,
-                currentIndex: this.currentIndex
-            }
-            localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(initialConfig))
+            this.setConfig('isRandom', this.isRandom)
+            this.setConfig('isRepeat', this.isRepeat)
+            this.setConfig('currentIndex', this.currentIndex)
+            this.isRandom = this.config.isRandom
+            this.isRepeat = this.config.isRepeat
+            this.currentIndex = this.config.currentIndex
+        } else {
             this.isRandom = this.config.isRandom
             this.isRepeat = this.config.isRepeat
             this.currentIndex = this.config.currentIndex
         }
-
-        this.isRandom = this.config.isRandom
-        this.isRepeat = this.config.isRepeat
-        this.currentIndex = this.config.currentIndex
     },
     renderConfig: function() {
         randomBtn.classList.toggle('active', this.isRandom)
