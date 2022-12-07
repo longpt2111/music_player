@@ -391,5 +391,3 @@ const app = {
 }
 
 app.start()
-
-console.log(1)
