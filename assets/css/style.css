@@ -114,11 +114,13 @@ header h2 {
 .control .btn-next,
 .control .btn-random {
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .progress {
     width: 100%;
     -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
     height: 6px;
     background: #d3d3d3;
     outline: none;
@@ -159,6 +161,7 @@ header h2 {
 }
 
 .song:active {
+    -webkit-tap-highlight-color: transparent;
     opacity: 0.8;
 }
 
