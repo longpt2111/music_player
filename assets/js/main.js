@@ -268,14 +268,10 @@ const app = {
             this.setConfig('isRandom', this.isRandom)
             this.setConfig('isRepeat', this.isRepeat)
             this.setConfig('currentIndex', this.currentIndex)
-            this.isRandom = this.config.isRandom
-            this.isRepeat = this.config.isRepeat
-            this.currentIndex = this.config.currentIndex
-        } else {
-            this.isRandom = this.config.isRandom
-            this.isRepeat = this.config.isRepeat
-            this.currentIndex = this.config.currentIndex
         }
+        this.isRandom = this.config.isRandom
+        this.isRepeat = this.config.isRepeat
+        this.currentIndex = this.config.currentIndex
     },
     renderConfig: function() {
         randomBtn.classList.toggle('active', this.isRandom)
@@ -324,8 +320,10 @@ const app = {
         this.removeSongIndex(this.currentIndex)
     },
     randomSong: function() {
+        // Clone songIndexArray để thực hiện shuffle
         const randIndexArray = [...this.songIndexArray]
         
+        // Shuffle index array theo phương pháp Fisher-Yates
         for (let i = randIndexArray.length -1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             let k = randIndexArray[i];
@@ -333,6 +331,7 @@ const app = {
             randIndexArray[j] = k;
         }
 
+        // Chọn ra index từ shuffled array để gán cho currentIndex
         for (let i = 0; i < randIndexArray.length; i++) {
             if (randIndexArray[i] !== undefined) {
                 this.currentIndex = randIndexArray[i]
@@ -352,10 +351,14 @@ const app = {
         this.removeSongIndex(this.currentIndex)
     },
     loadSongIndexArray: function() {
+        // Tạo mảng chứa index của các bài hát
         this.songIndexArray = this.songs.map((song, index) => index)
+
+        // Xóa index của bài hát hiện tại khỏi mảng
         delete this.songIndexArray[this.currentIndex]
     },
     removeSongIndex: function(index) {
+        // Xử lý khi mảng đã bị xóa hết và chỉ còn undefined elements
         const isUndefinedArray = this.songIndexArray.every(songIndex => songIndex === undefined)
         if (isUndefinedArray) {
             this.loadSongIndexArray()
@@ -389,4 +392,4 @@ const app = {
 
 app.start()
 
-// TEST
+console.log(1)
