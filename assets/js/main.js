@@ -18,16 +18,21 @@ const PLAYER_STORAGE_KEY = "F8_PLAYER";
 
 const player = $(".player");
 const playlist = $(".playlist");
-const cd = $(".cd");
 const heading = $("header h2");
+const cd = $(".cd");
 const cdThumb = $(".cd-thumb");
 const audio = $("#audio");
 const playBtn = $(".btn-toggle-play");
-const progress = $("#progress");
+const playingAnimation = $(".control #playing-animation");
 const nextBtn = $(".btn-next");
 const prevBtn = $(".btn-prev");
 const randomBtn = $(".btn-random");
 const repeatBtn = $(".btn-repeat");
+const currentTime = $(".song-progress #current-time");
+const totalTime = $(".song-progress #total-time");
+const songProgressInput = $(".progress-bar #progress-bar-input");
+const songProgressDot = $("#progress-bar-fake #progress-dot");
+const songProgressDiv = $(".progress-bar #progress-bar-div");
 
 const app = {
   currentIndex: 0,
@@ -116,6 +121,11 @@ const app = {
             </div>
             <div class="option">
                 <i class="fas fa-ellipsis-h"></i>
+                <span class="music-waves">
+                  <span class="wave"></span>
+                  <span class="wave"></span>
+                  <span class="wave"></span>
+                </span>
             </div>
         </div>
       `;
@@ -157,28 +167,87 @@ const app = {
     // Khi song được play
     audio.onplay = function () {
       _this.isPlaying = true;
+      // Hiện thị icon pause
       player.classList.add("playing");
+      // Chạy đĩa cd
       cdThumbAnimation.play();
+      // Chạy animation của toggle play button
+      playingAnimation.style.opacity = 1;
+      // Chạy music waves
+      $(".song.active .music-waves").classList.add("active");
     };
 
     // Khi song bị pause
     audio.onpause = function () {
       _this.isPlaying = false;
+      // Hiển thị icon play
       player.classList.remove("playing");
+      // Dừng đĩa cd
       cdThumbAnimation.pause();
+      // Dừng animation của toggle play button
+      playingAnimation.style.opacity = 0;
+      // Dừng music waves
+      $(".song.active .music-waves").classList.remove("active");
     };
 
-    // Khi tiến độ bài hát thay đổi
+    // Xử lý update audio progress
     audio.ontimeupdate = function () {
-      if (audio.duration) {
-        progress.value = audio.currentTime;
-        progress.max = audio.duration;
-      }
+      _this.updateAudioProgress();
     };
 
-    // Xử lý khi tua bài hát
-    progress.oninput = function () {
+    // Xử lý khi mouse down
+    songProgressInput.onmousedown = function (e) {
+      _this.stopUpdateAudioProgress();
+
+      // Update fake progress và current time khi mouse move
+      songProgressInput.onmousemove = function () {
+        _this.mouseMoveProgress(this);
+      };
+
+      // Update fake progress bar khi tua
+      const positionClick = e.offsetX;
+      const widthProgress = songProgressInput.offsetWidth;
+      const widthPercent = (positionClick / widthProgress) * 100;
+      songProgressDot.style.width = `${widthPercent}%`;
+      console.log(widthPercent);
+    };
+
+    // Xử lý khi mouse up
+    songProgressInput.onmouseup = function () {
+      // Update audio theo giá trị progress
       audio.currentTime = this.value;
+
+      // Set lại ontimeupdate
+      audio.ontimeupdate = function () {
+        _this.updateAudioProgress();
+      };
+    };
+
+    // Xử lý khi bắt đầu nhấn trên mobile
+    songProgressInput.ontouchstart = function (e) {
+      _this.stopUpdateAudioProgress();
+
+      // Update fake progress và current time khi mouse move
+      songProgressInput.ontouchmove = function () {
+        _this.mouseMoveProgress(this);
+      };
+
+      // Update fake progress bar khi tua
+      const positionClick = e.offsetX;
+      const widthProgress = songProgressInput.offsetWidth;
+      const widthPercent = (positionClick / widthProgress) * 100;
+      songProgressDot.style.width = `${widthPercent}%`;
+    };
+
+    // Xử lý khi kết thúc nhấn trên mobile
+    songProgressInput.ontouchend = function () {
+      // Update audio theo giá trị progress
+      audio.currentTime = this.value;
+
+      // Set lại ontimeupdate
+      audio.ontimeupdate = function () {
+        _this.updateAudioProgress();
+      };
     };
 
     // Xử lý next bài hát
@@ -369,6 +438,42 @@ const app = {
     } else {
       delete this.songIndexArray[index];
     }
+  },
+  updateAudioProgress: function () {
+    if (audio.duration) {
+      // Chạy progress bar khi audio chạy
+      songProgressInput.value = audio.currentTime;
+      songProgressInput.max = audio.duration;
+
+      // Chạy thời gian khi audio chạy
+      currentTime.innerText = this.convertTime(Math.floor(audio.currentTime));
+      totalTime.innerText = this.convertTime(Math.floor(audio.duration));
+
+      // Chạy fake progress bar khi audio chạy
+      const audioPercent = (audio.currentTime / audio.duration) * 100;
+      songProgressDot.style.width = `${audioPercent}%`;
+      console.log(audioPercent);
+    }
+  },
+  stopUpdateAudioProgress: function () {
+    audio.ontimeupdate = null;
+  },
+  mouseMoveProgress: function (_this) {
+    // Update current time khi mouse move
+    const valueProgress = (_this.value / _this.max) * 100;
+    const secondsCurrent = Math.floor((valueProgress * audio.duration) / 100);
+    currentTime.innerText = this.convertTime(secondsCurrent);
+
+    // Update fake progress bar khi mouse move
+    songProgressDot.style.width = `${valueProgress}%`;
+  },
+  convertTime: function (seconds = 0) {
+    const min = parseInt(seconds / 60);
+    seconds %= 60;
+    const front = min < 10 ? `0${min}` : min;
+    const back = seconds < 10 ? `0${seconds}` : seconds;
+
+    return `${front}:${back}`;
   },
   start: function () {
     // Gán cấu hình từ config vào ứng dụng

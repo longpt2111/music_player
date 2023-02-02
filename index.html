@@ -42,25 +42,45 @@
 
         <!-- Control -->
         <div class="control">
-          <div class="btn btn-repeat">
+          <div class="btn btn-repeat" title="Lặp bài hiện tại">
             <i class="fas fa-redo"></i>
           </div>
-          <div class="btn btn-prev">
+          <div class="btn btn-prev" title="Bài trước đó">
             <i class="fas fa-step-backward"></i>
           </div>
-          <div class="btn btn-toggle-play">
+          <div class="btn btn-toggle-play" title="Phát / Tạm dừng">
             <i class="fas fa-pause icon-pause"></i>
             <i class="fas fa-play icon-play"></i>
+            <div id="playing-animation"></div>
           </div>
-          <div class="btn btn-next">
+          <div class="btn btn-next" title="Bài tiếp theo">
             <i class="fas fa-step-forward"></i>
           </div>
-          <div class="btn btn-random">
+          <div class="btn btn-random" title="Phát ngẫu nhiên">
             <i class="fas fa-random"></i>
           </div>
         </div>
 
-        <input id="progress" class="progress" type="range" value="0" min="0" />
+        <div class="song-progress">
+          <div id="current-time">00:00</div>
+          <div class="progress-bar">
+            <div id="progress-bar-div">
+              <div id="progress-bar-fake">
+                <div id="progress-dot"></div>
+              </div>
+            </div>
+
+            <input
+              id="progress-bar-input"
+              type="range"
+              value="0"
+              min="0"
+              max="100"
+              step="0.1"
+            />
+          </div>
+          <div id="total-time">00:00</div>
+        </div>
 
         <audio id="audio" src=""></audio>
       </div>
