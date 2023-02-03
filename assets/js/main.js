@@ -209,7 +209,7 @@ const app = {
       const widthProgress = songProgressInput.offsetWidth;
       const widthPercent = (positionClick / widthProgress) * 100;
       songProgressDot.style.width = `${widthPercent}%`;
-      console.log(widthPercent);
+      // console.log(widthPercent);
     };
 
     // Xử lý khi mouse up
@@ -452,7 +452,7 @@ const app = {
       // Chạy fake progress bar khi audio chạy
       const audioPercent = (audio.currentTime / audio.duration) * 100;
       songProgressDot.style.width = `${audioPercent}%`;
-      console.log(audioPercent);
+      // console.log(audioPercent);
     }
   },
   stopUpdateAudioProgress: function () {

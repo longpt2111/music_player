@@ -235,7 +235,7 @@ header h2 {
 }
 
 #progress-bar-div #progress-bar-fake {
-  width: 97%;
+  width: 98%;
 }
 
 #progress-bar-fake #progress-dot {
@@ -397,6 +397,7 @@ header h2 {
 /* Music Waves */
 .song.active .option {
   position: relative;
+  width: 50px;
 }
 
 .song.active .option .music-waves {
