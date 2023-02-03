@@ -136,13 +136,6 @@ header h2 {
   transition: background-color 0.3s;
 }
 
-.control .btn-repeat:hover,
-.control .btn-prev:hover,
-.control .btn-next:hover,
-.control .btn-random:hover {
-  background-color: #efefef;
-}
-
 .control .btn.active {
   color: var(--primary-color);
 }
@@ -332,10 +325,6 @@ header h2 {
   cursor: pointer;
 }
 
-.song:hover {
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
 .song.active {
   background-color: var(--primary-color) !important;
   box-shadow: 0px 1px 4px rgba(0, 144, 206, 0.932) !important;
@@ -386,100 +375,8 @@ header h2 {
   font-size: 1.8rem;
 }
 
-.song .option i:hover {
-  color: var(--primary-color);
-}
-
 .song.active .option i {
   display: none;
-}
-
-/* Music Waves */
-.song.active .option {
-  position: relative;
-  width: 50px;
-}
-
-.song.active .option .music-waves {
-  position: absolute;
-  bottom: calc(-16px - 5px / 2);
-  right: 0;
-  padding: 16px;
-  display: flex;
-  align-items: flex-end;
-  gap: 1.4px;
-}
-
-.song.active .music-waves .wave {
-  display: block;
-  width: 5px;
-  height: 5px;
-  background-color: white;
-  transition: height 0.4s linear;
-  border-radius: 5px;
-}
-
-.song.active .music-waves.active > .wave:nth-child(1) {
-  animation: wavePlaying 0.6s linear infinite;
-}
-
-.song.active .music-waves.active > .wave:nth-child(2) {
-  animation: wavePlaying 0.6s linear 0.2s infinite;
-}
-
-.song.active .music-waves.active > .wave:nth-child(3) {
-  animation: wavePlaying 0.6s linear 0.4s infinite;
-}
-
-.song.active .music-waves > .wave:nth-child(1) {
-  animation: wavePlaying 0.6s linear infinite,
-    wavePausing 1s ease 1 normal forwards running;
-}
-
-.song.active .music-waves > .wave:nth-child(2) {
-  animation: wavePlaying 0.6s linear 0.2s infinite,
-    wavePausing 1s ease 1 normal forwards running;
-}
-
-.song.active .music-waves > .wave:nth-child(3) {
-  animation: wavePlaying 0.6s linear 0.4s infinite,
-    wavePausing 1s ease 1 normal forwards running;
-}
-
-/* Dừng music waves khi hover */
-.song.active .music-waves:hover > .wave:nth-child(1) {
-  animation: wavePlaying 0.6s linear infinite,
-    wavePausing 1s ease 1 normal forwards running;
-}
-
-.song.active .music-waves:hover > .wave:nth-child(2) {
-  animation: wavePlaying 0.6s linear 0.2s infinite,
-    wavePausing 1s ease 1 normal forwards running;
-}
-
-.song.active .music-waves:hover > .wave:nth-child(3) {
-  animation: wavePlaying 0.6s linear 0.4s infinite,
-    wavePausing 1s ease 1 normal forwards running;
-}
-
-@keyframes wavePlaying {
-  0% {
-    height: 5px;
-  }
-
-  50% {
-    height: 20px;
-  }
-
-  100% {
-    height: 5px;
-  }
-}
-
-@keyframes wavePausing {
-  100% {
-    height: 5px;
-  }
 }
 
 /* Scroll Bar */
@@ -498,4 +395,133 @@ header h2 {
   border-radius: 12px;
   --webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: var(--primary-color);
+}
+
+@media (hover: hover) {
+  /* Css những device có thể hover */
+  .control .btn-repeat:hover,
+  .control .btn-prev:hover,
+  .control .btn-next:hover,
+  .control .btn-random:hover {
+    background-color: #efefef;
+  }
+
+  .song:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .song .option i:hover {
+    color: var(--primary-color);
+  }
+
+  /* Music Waves */
+  .song.active .option {
+    position: relative;
+    width: 50px;
+  }
+
+  .song.active .option .music-waves {
+    position: absolute;
+    bottom: calc(-16px - 5px / 2);
+    right: 0;
+    padding: 16px;
+    display: flex;
+    align-items: flex-end;
+    gap: 1.4px;
+  }
+
+  .song.active .music-waves .wave {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    transition: height 0.4s linear;
+    border-radius: 5px;
+  }
+
+  .song.active .music-waves.active > .wave:nth-child(1) {
+    animation: wavePlaying 0.6s linear infinite;
+  }
+
+  .song.active .music-waves.active > .wave:nth-child(2) {
+    animation: wavePlaying 0.6s linear 0.2s infinite;
+  }
+
+  .song.active .music-waves.active > .wave:nth-child(3) {
+    animation: wavePlaying 0.6s linear 0.4s infinite;
+  }
+
+  .song.active .music-waves > .wave:nth-child(1) {
+    animation: wavePlaying 0.6s linear infinite,
+      wavePausing 1s ease 1 normal forwards running;
+  }
+
+  .song.active .music-waves > .wave:nth-child(2) {
+    animation: wavePlaying 0.6s linear 0.2s infinite,
+      wavePausing 1s ease 1 normal forwards running;
+  }
+
+  .song.active .music-waves > .wave:nth-child(3) {
+    animation: wavePlaying 0.6s linear 0.4s infinite,
+      wavePausing 1s ease 1 normal forwards running;
+  }
+
+  /* Dừng music waves khi hover */
+  .song.active .music-waves:hover > .wave:nth-child(1) {
+    animation: wavePlaying 0.6s linear infinite,
+      wavePausing 1s ease 1 normal forwards running;
+  }
+
+  .song.active .music-waves:hover > .wave:nth-child(2) {
+    animation: wavePlaying 0.6s linear 0.2s infinite,
+      wavePausing 1s ease 1 normal forwards running;
+  }
+
+  .song.active .music-waves:hover > .wave:nth-child(3) {
+    animation: wavePlaying 0.6s linear 0.4s infinite,
+      wavePausing 1s ease 1 normal forwards running;
+  }
+
+  @keyframes wavePlaying {
+    0% {
+      height: 5px;
+    }
+
+    50% {
+      height: 20px;
+    }
+
+    100% {
+      height: 5px;
+    }
+  }
+
+  @keyframes wavePausing {
+    100% {
+      height: 5px;
+    }
+  }
+}
+
+@media (hover: none) {
+  /* Css những device không thể hover */
+  .control .btn-repeat:active,
+  .control .btn-prev:active,
+  .control .btn-next:active,
+  .control .btn-random:active {
+    background-color: #efefef;
+  }
+
+  .song:active {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .song .option i:active {
+    color: var(--primary-color);
+  }
+
+  .song.active .option i {
+    display: block;
+    color: white;
+  }
 }
